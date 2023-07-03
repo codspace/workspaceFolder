@@ -1,0 +1,59 @@
+{
+	"$schema": "https://raw.githubusercontent.com/microsoft/vscode/master/extensions/configuration-editing/schemas/devContainer.schema.json",
+	"name": "Bridge Repo",
+	"build": {
+	  "dockerfile": "./Dockerfile",
+	  "args": {
+		"USERNAME": "vscode",
+		"ARG_1":"${localEnv:ARG_1}",
+		"ARG_2":"${localEnv:ARG_2}"
+	  }
+	},
+	"features": {
+	  "ghcr.io/devcontainers/features/github-cli:1": {},
+	  "ghcr.io/devcontainers/features/sshd:1": {},
+	  "ghcr.io/microsoft/codespace-features/microsoft-git:latest": {
+		"version": "2.39.1.vfs.0.0"
+	  },
+	  "ghcr.io/microsoft/codespace-features/external-repository:latest": {
+		"cloneUrl": "https://github.com/codspace/django-quiz-app",
+		"folder": "/workspaces/repos",
+		"scalar": "true",
+		"timeout": "30m",
+		// "cloneSecret": "MS_ADO_PAT",
+		"options": "--full-clone --single-branch --no-src"
+	  },
+	  "ghcr.io/microsoft/codespace-features/artifacts-helper:latest": {}
+	},
+	
+	"runArgs": ["--init", "--privileged"],
+	"remoteUser": "vscode",
+	// "hostRequirements": {
+	//   "memory": "8gb",
+	//   "storage": "128gb"
+	// },
+	"workspaceFolder": "/workspaces/repos/django-quiz-app",
+	"initializeCommand": "mkdir -p ${localWorkspaceFolder}/../repos/django-quiz-app",
+  
+	"customizations": {
+	  "vscode": {
+		"settings":{
+		  "files.watcherExclude": {
+			"**":true
+		  }
+		},
+		"extensions": [
+		  "GitHub.copilot"
+		]
+	  }
+	},
+	"remoteEnv": {
+	  "TARGET_REPO_URL": "https://github.com/codspace/django-quiz-app"
+	},
+	"containerEnv": {
+	  "MY_CONTAINER_VAR": "some-value-here",
+	  "MY_CONTAINER_VAR2": "${localEnv:SOME_LOCAL_VAR}"
+	},
+	"postStartCommand": "/bin/bash /workspaces/workspaceFolder/.codespaces/post-start.sh",
+	"onCreateCommand":"external-git clone && /bin/bash /workspaces/workspaceFolder/.codespaces/on-create.sh"
+  }
