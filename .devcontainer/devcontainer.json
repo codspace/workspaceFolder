@@ -17,7 +17,7 @@
 	  },
 	  "ghcr.io/microsoft/codespace-features/external-repository:latest": {
 		"cloneUrl": "https://github.com/codspace/django-quiz-app",
-		"folder": "/workspaces/repos",
+		"folder": "/workspaces/repos/django-quiz-app",
 		"scalar": "true",
 		"timeout": "30m",
 		// "cloneSecret": "MS_ADO_PAT",
@@ -33,7 +33,7 @@
 	//   "storage": "128gb"
 	// },
 	"workspaceFolder": "/workspaces/repos/django-quiz-app",
-	"initializeCommand": "mkdir -p ${localWorkspaceFolder}/../repos/django-quiz-app",
+	// "initializeCommand": "mkdir -p ${localWorkspaceFolder}/../repos/django-quiz-app",
   
 	"customizations": {
 	  "vscode": {
